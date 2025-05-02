@@ -1,0 +1,421 @@
+/* Google Font CDN Link */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Ubuntu:wght@400;500;700&display=swap');
+
+/* Define color variables in :root */
+:root {
+    --primary-color: #007BFF;
+    --primary-hover: #0056b3;
+    --text-light: #ffffff;
+    --text-dark: #222;
+    --overlay-dark: rgba(0, 0, 0, 0.3);
+    --overlay-darker: rgba(0, 0, 0, 0.4);
+    --overlay-darkest: rgba(0, 0, 0, 0.6);
+    --shadow-light: rgba(0, 0, 0, 0.1);
+    --shadow-dark: rgba(0, 0, 0, 0.8);
+    --text-shadow-strong: rgba(0, 0, 0, 0.8);
+    --text-shadow-weak: rgba(0, 0, 0, 0.6);
+    --nav-background: rgba(0, 123, 255, 0.95);
+}
+
+/* Base Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Ubuntu', sans-serif;
+}
+
+/* Prevent the page behind from scrolling */
+body.no-scroll {
+    overflow: hidden;
+}
+
+/* The overlay sits under the menu, above the page content */
+.menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    backdrop-filter: blur(4px);
+    background: var(--overlay-dark);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: 900;
+    pointer-events: none;
+}
+
+.menu-overlay.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+/* Header styling */
+.header {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 2;
+    z-index: 999;
+    background-color: transparent;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    padding: 20px 0;
+}
+
+.header.scrolled {
+    background-color: var(--text-light);
+    box-shadow: 0 2px 10px var(--shadow-light);
+}
+
+/* Container and navigation */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.nav-wrapper {
+    position: relative;
+}
+
+/* Updated Logo Styling */
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-decoration: none;
+    color: var(--text-light);
+    text-shadow: 0 2px 4px var(--shadow-dark);
+}
+
+/* When header is scrolled, switch logo color for contrast */
+.header.scrolled .logo {
+    color: var(--text-dark);
+    text-shadow: none;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+}
+
+.nav-links li a {
+    text-decoration: none;
+    color: var(--text-light);
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: color 0.3s ease;
+}
+
+.nav-links li a:hover {
+    color: var(--primary-hover);
+    font-weight: 900;
+}
+
+.quote-box .quote-btn {
+    padding: 0.6rem 1.2rem;
+    background-color: var(--primary-color);
+    color: var(--text-light);
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 6px;
+    transition: background-color 0.2s ease;
+}
+
+.quote-box .quote-btn:hover {
+    background-color: var(--primary-hover);
+}
+
+.hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+}
+
+.hamburger span {
+    width: 25px;
+    height: 3px;
+    background: var(--text-light);
+    transition: 0.3s ease;
+}
+
+.close-btn {
+    display: none;
+}
+
+/* HERO SECTION */
+.hero {
+    position: relative;
+    width: 100%;
+    height: 100vh; /* full viewport height */
+    overflow: hidden;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--overlay-darker);
+    z-index: 0;
+}
+
+.hero-slider {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transition: opacity 2s ease-in-out;
+}
+
+.slide.active {
+    opacity: 1;
+}
+
+/* Unified overlay for both slides */
+.slide::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--overlay-darkest);
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 0.01s ease-in-out;
+}
+
+.slide.active::after {
+    opacity: 1;
+}
+
+/* Slide specific background images */
+.slide--1 {
+    background-image: url('./images/hero-image-6.jpg');
+}
+
+.slide--2 {
+    background-image: url('./images/hero-image-2.jpg');
+}
+
+/* HERO CONTENT */
+.hero-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    position: relative; /* keep it above the slides and overlay */
+    z-index: 2;
+    max-width: auto;
+    margin: 0 auto;
+    padding: 0 1rem;
+    text-align: center;
+    color: var(--text-light);
+    top: 45%;
+    left: 0;
+    transform: translateY(-50%);
+}
+
+.hero-content h1 {
+    font-size: 3rem;
+    line-height: 1.1;
+    margin-bottom: 1rem;
+    color: var(--text-light);
+    text-shadow: 0 2px 4px var(--text-shadow-strong), 0 4px 8px var(--text-shadow-weak);
+}
+
+.hero-content p {
+    font-size: 1.25rem;
+    margin-bottom: 2rem;
+    opacity: 0.95;
+    color: var(--text-light);
+    text-shadow: 0 2px 4px var(--text-shadow-strong), 0 4px 8px var(--text-shadow-weak);
+}
+
+.hero-cta .btn {
+    display: inline-block;
+    font-weight: 600;
+    text-decoration: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    margin: 0 0.5rem;
+}
+
+.hero-cta .btn-primary {
+    background-color: var(--primary-color);
+    color: var(--text-light);
+}
+
+.hero-cta .btn-primary:hover {
+    background-color: var(--primary-hover);
+}
+
+.hero-cta .btn-ghost {
+    background-color: transparent;
+    color: var(--text-light);
+    border: 2px solid var(--primary-color);
+}
+
+.hero-cta .btn-ghost:hover {
+    background-color: var(--primary-color);
+}
+
+/* Responsive (optional starter) */
+@media (max-width: 768px) {
+    .hamburger {
+        display: flex;
+    }
+  
+    .main-nav {
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 70%;
+        height: 100vh;
+        background: var(--nav-background);
+        display: none;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 0;
+        z-index: 1000;
+        border-top-left-radius: 1.5rem;
+        border-bottom-left-radius: 1.5rem;
+        transform: translateX(100%);
+        transition: transform 0.4s ease;
+    }
+  
+    .main-nav.active {
+        display: flex;
+        transform: translateX(0);
+    }
+  
+    .nav-links {
+        display: flex;
+        flex-direction: column;
+        height: 70%;
+        width: 100%;
+        justify-content: space-evenly;
+        align-items: center;
+        gap: 0;
+        margin: 0;
+    }
+  
+    .nav-links li {
+        flex: 1;
+        text-align: center;
+    }
+    
+    .nav-links li a {
+        display: block;
+        padding: 1rem 0;
+    }
+    
+    .nav-links li a {
+        color: #ffffff;
+    }
+
+    .quote-box {
+        display: none;
+    }
+  
+    .close-btn {
+        display: block;
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        font-size: 2rem;
+        color: var(--text-light);
+        cursor: pointer;
+        width: 20px;
+        height: 20px;
+        z-index: 1001;
+    }
+}
+
+/* Responsive media query for max-width 440px */
+@media (max-width: 440px) {
+    /* Reduce container padding for a snugger layout */
+    .container {
+      padding: 0 1rem;
+    }
+  
+    /* Decrease header vertical padding for less wasted space */
+    .header {
+      padding: 10px 0;
+    }
+  
+    /* Scale down the logo for better balance on small screens */
+    .logo {
+      font-size: 1.2rem;
+    }
+  
+    /* Adjust navigation links font size and padding to prevent crowding */
+    .nav-links li a {
+      font-size: 1rem;
+      padding: 0.8rem 0;
+    }
+  
+    /* Refine the hamburger icon dimensions for smaller devices */
+    .hamburger span {
+      width: 20px;
+      height: 2px;
+    }
+  
+    /* Expand the mobile menu width slightly to better fill the screen */
+    .main-nav {
+      width: 90%;
+    }
+  
+    /* Optimize hero content positioning and text sizing */
+    .hero-content {
+      padding: 0 0.5rem;
+      top: 50%;
+      align-items: center;
+    }
+  
+    .hero-content h1 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+  
+    .hero-content p {
+      font-size: 1rem;
+      margin-bottom: 5rem;
+    }
+
+    .hero-cta .btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+        margin: 0;
+    }
+
+    .hero-cta {
+        display: flex;
+        justify-content: space-evenly;
+        gap: 1rem;
+        margin-bottom: -10rem;
+    }
+}
